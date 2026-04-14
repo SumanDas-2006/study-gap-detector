@@ -2,23 +2,67 @@
 <html>
 <head>
   <title>Study Gap Detector</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #0f172a;
+      color: white;
+      text-align: center;
+      padding: 50px;
+    }
+
+    .container {
+      background: #1e293b;
+      padding: 30px;
+      border-radius: 10px;
+      width: 300px;
+      margin: auto;
+      box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
+    }
+
+    input {
+      width: 90%;
+      padding: 8px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: none;
+    }
+
+    button {
+      background: #3b82f6;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background: #2563eb;
+    }
+
+    #output {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #22c55e;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Study Gap Detector</h1>
 
-  <p>Enter total topics:</p>
-  <input id="total" type="number">
+  <div class="container">
+    <h2>📚 Study Gap Detector</h2>
 
-  <p>Topics completed:</p>
-  <input id="done" type="number">
+    <input id="total" type="number" placeholder="Total topics">
+    <input id="done" type="number" placeholder="Completed topics">
+    <input id="time" type="number" placeholder="Time left (hours)">
 
-  <p>Time left (hours):</p>
-  <input id="time" type="number">
+    <button onclick="generatePlan()">Generate Plan</button>
 
-  <br><br>
-  <button onclick="generatePlan()">Generate Plan</button>
-
-  <h3 id="output"></h3>
+    <p id="output"></p>
+  </div>
 
   <script>
     function generatePlan() {
@@ -27,11 +71,20 @@
       let time = document.getElementById("time").value;
 
       let remaining = total - done;
+
+      if (remaining <= 0) {
+        document.getElementById("output").innerText =
+          "🔥 You're already done! Revise important topics.";
+        return;
+      }
+
       let perHour = (remaining / time).toFixed(2);
 
       document.getElementById("output").innerText =
-        "Focus on " + remaining + " topics. Study ~" + perHour + " topics per hour.";
+        "📊 Focus on " + remaining + " topics | ⏱️ " +
+        perHour + " topics/hour needed.";
     }
   </script>
+
 </body>
 </html>
