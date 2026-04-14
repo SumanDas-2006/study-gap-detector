@@ -5,6 +5,33 @@
 </head>
 <body>
   <h1>Study Gap Detector</h1>
-  <p>Plan your study smartly.</p>
+
+  <p>Enter total topics:</p>
+  <input id="total" type="number">
+
+  <p>Topics completed:</p>
+  <input id="done" type="number">
+
+  <p>Time left (hours):</p>
+  <input id="time" type="number">
+
+  <br><br>
+  <button onclick="generatePlan()">Generate Plan</button>
+
+  <h3 id="output"></h3>
+
+  <script>
+    function generatePlan() {
+      let total = document.getElementById("total").value;
+      let done = document.getElementById("done").value;
+      let time = document.getElementById("time").value;
+
+      let remaining = total - done;
+      let perHour = (remaining / time).toFixed(2);
+
+      document.getElementById("output").innerText =
+        "Focus on " + remaining + " topics. Study ~" + perHour + " topics per hour.";
+    }
+  </script>
 </body>
 </html>
